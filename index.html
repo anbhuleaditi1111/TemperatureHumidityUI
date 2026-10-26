@@ -48,7 +48,54 @@
       <p class="note">Demo interface only — readings are randomly generated and are not from a physical sensor.</p>
     </section>
     <footer>Temperature & Humidity Monitoring System <span>•</span> Student Project</footer>
+    
+<section class="panel" id="dataset-section">
+  <div class="panel-heading">
+    <div>
+      <p class="eyebrow">SAMPLE DATA</p>
+      <h2>Temperature &amp; Humidity Dataset</h2>
+    </div>
+  </div>
+
+  <p id="dataset-status">Loading dataset...</p>
+
+  <div class="dataset-summary">
+    <div>
+      <span>Latest Temperature</span>
+      <h3 id="dataset-latest-temp">--</h3>
+    </div>
+    <div>
+      <span>Latest Humidity</span>
+      <h3 id="dataset-latest-humidity">--</h3>
+    </div>
+  </div>
+
+  <h3>Temperature Graph</h3>
+  <canvas id="temperature-chart" class="dataset-chart"></canvas>
+
+  <h3>Humidity Graph</h3>
+  <canvas id="humidity-chart" class="dataset-chart"></canvas>
+
+  <h3>Dataset Readings</h3>
+  <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Date &amp; Time</th>
+          <th>Temperature</th>
+          <th>Humidity</th>
+        </tr>
+      </thead>
+      <tbody id="dataset-table-body"></tbody>
+    </table>
+  </div>
+
+  <p class="note">
+    Demonstration data only; not live sensor readings.
+  </p>
+</section>
+
   </main>
-  <script src="script.js"></script>
+  <script src="dataset.js"></script>
 </body>
 </html>

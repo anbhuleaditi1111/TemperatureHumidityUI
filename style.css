@@ -43,3 +43,41 @@ button:focus-visible { outline:3px solid #93c5fd; outline-offset:3px; }
 footer { text-align:center; color:#71829c; font-size:12px; padding:24px 0 0; }
 footer span { color:#40516a; padding:0 5px; }
 @media(max-width:560px) { body { padding:25px 13px; align-items:flex-start; } header { align-items:flex-start; flex-direction:column; } .cards { grid-template-columns:1fr; } .card,.panel { padding:20px; } .details { grid-template-columns:1fr; } }
+
+#dataset-section .dataset-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+#dataset-section .dataset-summary > div {
+  padding: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+}
+
+#dataset-section .dataset-chart {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  margin: 12px 0 24px;
+}
+
+#dataset-section table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#dataset-section th,
+#dataset-section td {
+  padding: 10px;
+  border-bottom: 1px solid #d1d5db;
+  text-align: left;
+}
+
+#dataset-section .note {
+  font-size: 13px;
+  opacity: 0.75;
+}
