@@ -3,99 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Temperature and humidity monitoring dashboard with a sample dataset.">
   <title>Temperature & Humidity Monitor</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="dashboard">
-    <header>
+  <header class="topbar">
+    <div class="brand-mark" aria-hidden="true">°</div>
+    <div>
+      <p class="eyebrow">ENVIRONMENT MONITORING</p>
+      <h1>Temperature & Humidity</h1>
+    </div>
+    <div class="live-pill"><span class="live-dot"></span> Dataset demo</div>
+  </header>
+
+  <main class="container">
+    <section class="intro">
       <div>
-        <p class="eyebrow">SMART ENVIRONMENT SYSTEM</p>
-        <h1>Environment Monitor</h1>
-        <p class="subtitle">Temperature & humidity dashboard</p>
+        <p class="eyebrow accent">MONITORING DASHBOARD</p>
+        <h2>Room conditions at a glance</h2>
+        <p class="intro-copy">Explore sample sensor readings, track trends, and identify normal or abnormal conditions.</p>
       </div>
-      <span class="status"><span class="dot"></span> DEMO MODE</span>
-    </header>
+      <div class="date-chip" id="dataset-range">Loading dataset…</div>
+    </section>
 
-    <section class="cards">
-      <article class="card temperature">
-        <div class="card-top"><span class="icon">🌡️</span><span class="tag">LIVE DEMO</span></div>
-        <p class="label">Temperature</p>
-        <p class="value" id="temp">28.5 <small>°C</small></p>
-        <p class="description">Ambient temperature</p>
-        <div class="meter"><span id="temp-meter" style="width:57%"></span></div>
+    <section class="stats-grid" aria-label="Latest readings">
+      <article class="stat-card temperature-card">
+        <div class="stat-top"><span>Latest temperature</span><span class="stat-icon">°C</span></div>
+        <div class="stat-value"><span id="latest-temp">--</span><small>°C</small></div>
+        <p class="stat-note">Most recent sample</p>
       </article>
-      <article class="card humidity">
-        <div class="card-top"><span class="icon">💧</span><span class="tag">LIVE DEMO</span></div>
-        <p class="label">Humidity</p>
-        <p class="value" id="humidity">65 <small>%</small></p>
-        <p class="description">Relative humidity</p>
-        <div class="meter"><span id="humidity-meter" style="width:65%"></span></div>
+      <article class="stat-card humidity-card">
+        <div class="stat-top"><span>Latest humidity</span><span class="stat-icon">％</span></div>
+        <div class="stat-value"><span id="latest-humidity">--</span><small>%</small></div>
+        <p class="stat-note">Relative humidity</p>
+      </article>
+      <article class="stat-card status-card">
+        <div class="stat-top"><span>Latest status</span><span class="stat-icon">✓</span></div>
+        <div class="stat-value status-value"><span id="latest-status" class="status-badge pending">Loading</span></div>
+        <p class="stat-note" id="latest-status-note">Based on demo thresholds</p>
+      </article>
+      <article class="stat-card count-card">
+        <div class="stat-top"><span>Abnormal readings</span><span class="stat-icon">!</span></div>
+        <div class="stat-value"><span id="abnormal-count">--</span><small>/ <span id="total-count">--</span></small></div>
+        <p class="stat-note">Samples outside the normal range</p>
       </article>
     </section>
 
-    <section class="panel">
-      <div class="panel-heading">
-        <div><p class="eyebrow">SYSTEM OVERVIEW</p><h2>Environment status</h2></div>
-        <span class="status small"><span class="dot"></span> Active</span>
-      </div>
-      <p id="environment" class="message">Temperature and humidity are within the demo range.</p>
-      <div class="details">
-        <div><span class="detail-label">Data source</span><strong>Simulated readings</strong></div>
-        <div><span class="detail-label">Last updated</span><strong id="updated">Waiting for refresh</strong></div>
-      </div>
-      <button id="refresh" type="button">↻ &nbsp; Refresh readings</button>
-      <p class="note">Demo interface only — readings are randomly generated and are not from a physical sensor.</p>
+    <section class="chart-grid">
+      <article class="panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">TREND</p><h3>Temperature over time</h3></div>
+          <span class="legend"><i class="legend-dot temp-dot"></i> Temperature (°C)</span>
+        </div>
+        <div class="chart-wrap"><canvas id="temperature-chart" aria-label="Temperature chart"></canvas></div>
+      </article>
+      <article class="panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">TREND</p><h3>Humidity over time</h3></div>
+          <span class="legend"><i class="legend-dot humidity-dot"></i> Humidity (%)</span>
+        </div>
+        <div class="chart-wrap"><canvas id="humidity-chart" aria-label="Humidity chart"></canvas></div>
+      </article>
     </section>
-    <footer>Temperature & Humidity Monitoring System <span>•</span> Student Project</footer>
-    
-<section class="panel" id="dataset-section">
-  <div class="panel-heading">
-    <div>
-      <p class="eyebrow">SAMPLE DATA</p>
-      <h2>Temperature &amp; Humidity Dataset</h2>
-    </div>
-  </div>
 
-  <p id="dataset-status">Loading dataset...</p>
-
-  <div class="dataset-summary">
-    <div>
-      <span>Latest Temperature</span>
-      <h3 id="dataset-latest-temp">--</h3>
-    </div>
-    <div>
-      <span>Latest Humidity</span>
-      <h3 id="dataset-latest-humidity">--</h3>
-    </div>
-  </div>
-
-  <h3>Temperature Graph</h3>
-  <canvas id="temperature-chart" class="dataset-chart"></canvas>
-
-  <h3>Humidity Graph</h3>
-  <canvas id="humidity-chart" class="dataset-chart"></canvas>
-
-  <h3>Dataset Readings</h3>
-  <div style="overflow-x:auto">
-    <table>
-      <thead>
-        <tr>
-          <th>Date &amp; Time</th>
-          <th>Temperature</th>
-          <th>Humidity</th>
-        </tr>
-      </thead>
-      <tbody id="dataset-table-body"></tbody>
-    </table>
-  </div>
-
-  <p class="note">
-    Demonstration data only; not live sensor readings.
-  </p>
-</section>
-
+    <section class="panel dataset-panel">
+      <div class="panel-heading dataset-heading">
+        <div><p class="eyebrow">DATA EXPLORER</p><h3>Sensor dataset</h3><p class="muted">Sample data stored in <code>dataset.csv</code></p></div>
+        <div class="table-controls">
+          <label for="status-filter">Filter status</label>
+          <select id="status-filter">
+            <option value="All">All readings</option>
+            <option value="Normal">Normal only</option>
+            <option value="Abnormal">Abnormal only</option>
+          </select>
+          <button id="download-csv" class="secondary-button" type="button">Download CSV</button>
+        </div>
+      </div>
+      <div id="load-message" class="load-message" role="status">Loading dataset…</div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Timestamp</th><th>Temperature (°C)</th><th>Humidity (%)</th><th>Status</th></tr></thead>
+          <tbody id="dataset-table-body"></tbody>
+        </table>
+      </div>
+      <div class="table-footer"><span id="rows-shown">0 readings</span><span>Normal range: 18–30°C and 30–70% humidity</span></div>
+    </section>
+    <p class="footnote">Demo project • Values are sample data, not live sensor readings. Status is calculated using the threshold shown above.</p>
   </main>
-  <script src="dataset.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
